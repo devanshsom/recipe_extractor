@@ -18,12 +18,12 @@ A full-stack app that scrapes any recipe blog URL, extracts structured data usin
 
 ### Tab 2 — Saved Recipes
 <p align="center">
-  <img src="screenshots/tab2_history(2).png" width="600"/>
+  <img src="screenshots/tab2_history (2).png" width="600"/>
 </p>
 
 ### Details Modal
 <p align="center">
-  <img src="screenshots/tab3_modal(2).png" width="600"/>
+  <img src="screenshots/tab3_modal (2).png" width="600"/>
 </p>
 
 ---
