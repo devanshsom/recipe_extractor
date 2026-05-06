@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RecipeLens — Extract & Plan</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <header>
+    <div class="logo">
+      <span class="logo-icon">⌖</span>
+      <span class="logo-text">Recipe<em>Lens</em></span>
+    </div>
+    <nav class="tabs">
+      <button class="tab active" data-tab="extract">Extract Recipe</button>
+      <button class="tab" data-tab="history">Saved Recipes</button>
+      <button class="tab" data-tab="mealplan">Meal Planner</button>
+    </nav>
+  </header>
+
+  <!-- ── Main ── -->
+  <main>
+
+    <!-- TAB 1: Extract -->
+    <section id="tab-extract" class="tab-panel active">
+      <div class="hero">
+        <h1>Turn any recipe URL<br><em>into structured data</em></h1>
+        <p class="subtitle">Paste a recipe blog link and let AI extract everything — ingredients, nutrition, substitutions, and more.</p>
+      </div>
+
+      <div class="url-card">
+        <div class="input-row">
+          <input id="url-input" type="url" placeholder="https://www.allrecipes.com/recipe/..." />
+          <button id="extract-btn" class="btn-primary">
+            <span class="btn-text">Extract</span>
+            <span class="btn-loader hidden">●●●</span>
+          </button>
+        </div>
+        <p class="hint">Try: allrecipes.com, food.com, simplyrecipes.com, bonappetit.com</p>
+      </div>
+
+      <!-- Error Banner -->
+      <div id="error-banner" class="error-banner hidden"></div>
+
+      <!-- Result -->
+      <div id="result-area" class="hidden">
+        <div class="recipe-header-card">
+          <div class="recipe-meta-top">
+            <span class="badge" id="r-cuisine"></span>
+            <span class="badge difficulty" id="r-difficulty"></span>
+          </div>
+          <h2 id="r-title"></h2>
+          <div class="time-chips">
+            <div class="chip"><span class="chip-label">Prep</span><span id="r-prep"></span></div>
+            <div class="chip"><span class="chip-label">Cook</span><span id="r-cook"></span></div>
+            <div class="chip"><span class="chip-label">Total</span><span id="r-total"></span></div>
+            <div class="chip"><span class="chip-label">Serves</span><span id="r-servings"></span></div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <!-- Ingredients -->
+          <div class="card">
+            <h3 class="card-title">🧂 Ingredients</h3>
+            <ul id="r-ingredients" class="ingredient-list"></ul>
+          </div>
+          <!-- Nutrition -->
+          <div class="card">
+            <h3 class="card-title">📊 Nutrition <small>(per serving)</small></h3>
+            <div class="nutrition-grid">
+              <div class="nut-item"><span class="nut-val" id="n-cal">—</span><span class="nut-label">kcal</span></div>
+              <div class="nut-item"><span class="nut-val" id="n-protein">—</span><span class="nut-label">Protein</span></div>
+              <div class="nut-item"><span class="nut-val" id="n-carbs">—</span><span class="nut-label">Carbs</span></div>
+              <div class="nut-item"><span class="nut-val" id="n-fat">—</span><span class="nut-label">Fat</span></div>
+            </div>
+            <h3 class="card-title mt">🔄 Substitutions</h3>
+            <ul id="r-subs" class="sub-list"></ul>
+          </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="card full-width">
+          <h3 class="card-title">📋 Instructions</h3>
+          <ol id="r-instructions" class="instruction-list"></ol>
+        </div>
+
+        <!-- Shopping List -->
+        <div class="card full-width">
+          <h3 class="card-title">🛒 Shopping List</h3>
+          <div id="r-shopping" class="shopping-grid"></div>
+        </div>
+
+        <!-- Related -->
+        <div class="card full-width">
+          <h3 class="card-title">✨ Related Recipes</h3>
+          <div id="r-related" class="related-chips"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: History -->
+    <section id="tab-history" class="tab-panel hidden">
+      <div class="section-header">
+        <h2>Saved Recipes</h2>
+        <button id="refresh-btn" class="btn-secondary">↻ Refresh</button>
+      </div>
+      <div id="history-empty" class="empty-state hidden">
+        <p>No recipes saved yet. Extract one from Tab 1!</p>
+      </div>
+      <div class="table-wrap">
+        <table id="history-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+              <th>Cuisine</th>
+              <th>Difficulty</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="history-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB 3: Meal Planner -->
+    <section id="tab-mealplan" class="tab-panel hidden">
+      <div class="section-header">
+        <h2>Meal Planner</h2>
+        <p class="subtitle">Select 3–5 saved recipes to generate a combined shopping list.</p>
+      </div>
+      <div id="planner-grid" class="planner-grid"></div>
+      <div class="planner-actions">
+        <span id="planner-count">0 selected</span>
+        <button id="generate-plan-btn" class="btn-primary" disabled>Generate Meal Plan</button>
+      </div>
+      <div id="meal-plan-result" class="hidden"></div>
+    </section>
+
+  </main>
+
+  <!-- ── Modal ── -->
+  <div id="modal-overlay" class="modal-overlay hidden">
+    <div class="modal">
+      <button class="modal-close" id="modal-close">✕</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
