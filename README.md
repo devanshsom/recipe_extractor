@@ -4,6 +4,19 @@ A full-stack app that scrapes any recipe blog URL, extracts structured data usin
 
 ---
 
+## Screenshots
+
+### Tab 1 — Extract Recipe
+![Extract Recipe](screenshots/tab1_extract.png)
+
+### Tab 2 — Saved Recipes
+![Saved Recipes](screenshots/tab2_history.png)
+
+### Details Modal
+![Details Modal](screenshots/tab3_modal.png)
+
+---
+
 ## Project Structure
 
 ```
@@ -18,6 +31,10 @@ recipe_extractor/
 │   ├── index.html
 │   ├── style.css
 │   └── script.js
+├── screenshots/
+│   ├── tab1_extract.png
+│   ├── tab2_history.png
+│   └── tab3_modal.png
 ├── sample_data/
 │   ├── urls.md
 │   └── grilled_cheese_output.json
