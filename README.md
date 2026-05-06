@@ -6,8 +6,11 @@ A full-stack app that scrapes any recipe blog URL, extracts structured data usin
 
 ## Screenshots
 
-### Tab 1 — Extract Recipe
-![Extract Recipe](screenshots/tab1_extract.png)
+### Tab 1 — Extract Recipe (Before)
+![Extract Recipe Before](screenshots/tab1_before.png)
+
+### Tab 1 — Extract Recipe (After)
+![Extract Recipe After](screenshots/tab1_after.png)
 
 ### Tab 2 — Saved Recipes
 ![Saved Recipes](screenshots/tab2_history.png)
@@ -32,7 +35,8 @@ recipe_extractor/
 │   ├── style.css
 │   └── script.js
 ├── screenshots/
-│   ├── tab1_extract.png
+│   ├── tab1_before.png
+│   ├── tab1_after.png
 │   ├── tab2_history.png
 │   └── tab3_modal.png
 ├── sample_data/
